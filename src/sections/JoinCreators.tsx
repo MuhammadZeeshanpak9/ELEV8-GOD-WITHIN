@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ConnectedNodes, FloatingOrbs } from '../components/animations/ParticleField';
 import { Send, User, Mail, Phone, MapPin, MessageSquare } from 'lucide-react';
@@ -6,7 +6,7 @@ import { Send, User, Mail, Phone, MapPin, MessageSquare } from 'lucide-react';
 interface FormInputProps {
   type?: string;
   placeholder: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   delay?: number;
   isTextarea?: boolean;
 }

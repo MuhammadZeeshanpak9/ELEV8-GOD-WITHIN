@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { FloatingOrbs, EnergyBeams } from '../components/animations/ParticleField';
 import { Heart, BookOpen, Palette } from 'lucide-react';
@@ -11,7 +11,7 @@ interface GiftItemProps {
   title: string;
   image: string;
   imageAlt: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   delay?: number;
 }
 
