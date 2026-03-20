@@ -4,7 +4,7 @@ import { Heart, Globe, Sparkles, ArrowRight } from 'lucide-react';
 
 import innerElevationImg from '../assests/Our Movement/1000077032.jpg';
 import globalUnityImg from '../assests/Our Movement/1000077033.jpg';
-import consciousCreationImg from '../assests/corporate HQ/1000077339.jpg';
+import consciousCreationImg from '../assests/corporate HQ/1000077219.jpg';
 
 const movementItems = [
   {

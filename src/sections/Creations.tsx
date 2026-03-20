@@ -4,7 +4,7 @@ import { AnimatedSection } from '../components/animations/AnimatedSection';
 import { ArrowUpRight } from 'lucide-react';
 
 import auditoriumImg from '../assests/Auditorium/1000076591.jpg';
-import corporateHqImg from '../assests/corporate HQ/1000076581.jpg';
+import corporateHqImg from '../assests/corporate HQ/1000077339.jpg';
 
 interface CreationCardProps {
   title: string;
