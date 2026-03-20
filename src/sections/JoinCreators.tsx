@@ -29,10 +29,10 @@ function FormInput({ type = 'text', placeholder, icon, delay = 0, isTextarea = f
       <motion.div
         className={`relative flex items-start ${isTextarea ? 'h-32' : 'h-14'} bg-white rounded-xl border-2 transition-all duration-300 overflow-hidden`}
         animate={{
-          borderColor: isFocused ? '#9F81B9' : '#e5e7eb',
+          borderColor: isFocused ? '#8A5AB9' : '#e5e7eb',
           boxShadow: isFocused
-            ? '0 0 20px rgba(159, 129, 185, 0.2)'
-            : '0 0 0px rgba(159, 129, 185, 0)',
+            ? '0 0 20px rgba(138, 90, 185, 0.4)'
+            : '0 0 0px rgba(138, 90, 185, 0)',
         }}
       >
         {/* Icon */}
@@ -59,13 +59,13 @@ function FormInput({ type = 'text', placeholder, icon, delay = 0, isTextarea = f
             }`}
         />
 
-        {/* Focus Glow Effect - #9F81B9 */}
+        {/* Focus Glow Effect - Royal Purple */}
         <motion.div
           className="absolute inset-0 pointer-events-none rounded-xl"
           animate={{
             boxShadow: isFocused
-              ? 'inset 0 0 0 2px rgba(159, 129, 185, 0.3)'
-              : 'inset 0 0 0 0px rgba(159, 129, 185, 0)',
+              ? 'inset 0 0 0 2px rgba(138, 90, 185, 0.5)'
+              : 'inset 0 0 0 0px rgba(138, 90, 185, 0)',
           }}
           transition={{ duration: 0.3 }}
         />
@@ -161,8 +161,8 @@ export function JoinCreators() {
               {'JOIN OUR GLOBAL CREATORS'.split(' ').map((word, i) => (
                 <motion.span
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  initial={{ opacity: 0, y: 20, filter: 'blur(5px)' }}
+                  animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
                   transition={{ duration: 0.5, delay: 0.2 + i * 0.08 }}
                   className="inline-block mr-3"
                 >
@@ -258,13 +258,12 @@ export function JoinCreators() {
                   disabled={isSubmitting || isSubmitted}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${isSubmitted
+                  className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 hover-lift shadow-xl glow-purple-strong ${isSubmitted
                       ? 'text-white'
-                      : 'text-white hover:shadow-lg'
+                      : 'text-white hover:shadow-2xl'
                     }`}
                   style={{
-                    backgroundColor: isSubmitted ? '#22c55e' : '#9F81B9',
-                    boxShadow: isSubmitted ? 'none' : '0 10px 30px rgba(159, 129, 185, 0.3)',
+                    backgroundColor: isSubmitted ? '#22c55e' : '#8A5AB9',
                   }}
                 >
                   {isSubmitting ? (

@@ -161,8 +161,8 @@ export function PsychedelicExperience() {
             {'ELEV8 PSYCHEDELIC EXPERIENCE'.split(' ').map((word, i) => (
               <motion.span
                 key={i}
-                initial={{ opacity: 0, y: 30, rotateX: -90 }}
-                animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                initial={{ opacity: 0, y: 30, rotateX: -90, filter: 'blur(10px)' }}
+                animate={isInView ? { opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)' } : {}}
                 transition={{
                   duration: 0.6,
                   delay: 0.3 + i * 0.08,
@@ -189,16 +189,16 @@ export function PsychedelicExperience() {
           {/* CTA Button */}
           <motion.button
             onClick={scrollToContact}
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, y: 20, filter: 'blur(5px)' }}
+            animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
             transition={{ duration: 0.8, delay: 1 }}
             whileHover={{
               scale: 1.05,
-              boxShadow: '0 0 50px rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 0 60px rgba(255, 255, 255, 0.8)',
             }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center px-10 py-4 bg-white text-lg font-bold rounded-full transition-all duration-300 hover:bg-white/90 group"
-            style={{ color: '#9F81B9' }}
+            className="inline-flex items-center px-10 py-4 bg-white text-lg font-bold rounded-full transition-all duration-300 hover:bg-white/90 group hover-lift shadow-2xl"
+            style={{ color: '#8A5AB9' }}
           >
             Donate as a Creator
             <motion.svg

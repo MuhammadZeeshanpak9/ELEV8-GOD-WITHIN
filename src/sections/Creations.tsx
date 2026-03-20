@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { BlueprintGrid } from '../components/animations/ParticleField';
 import { AnimatedSection } from '../components/animations/AnimatedSection';
 
@@ -169,7 +169,6 @@ function CreationCard({ title, description, image, imageAlt, isLarge = false, de
 
 export function Creations() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
 
   return (
     <section

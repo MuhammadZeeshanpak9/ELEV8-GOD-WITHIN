@@ -35,7 +35,7 @@ function MovementItem({ title, description, image, imageAlt, icon, delay = 0 }: 
         animate={{
           y: isHovered ? -10 : 0,
           boxShadow: isHovered
-            ? '0 30px 60px -15px rgba(159, 129, 185, 0.35)'
+            ? '0 30px 60px -15px rgba(138, 90, 185, 0.6)'
             : '0 10px 30px -10px rgba(0, 0, 0, 0.1)',
         }}
       >
@@ -53,11 +53,11 @@ function MovementItem({ title, description, image, imageAlt, icon, delay = 0 }: 
             />
           </motion.div>
 
-          {/* Gradient Overlay - #9F81B9 */}
+          {/* Gradient Overlay - Royal Purple */}
           <motion.div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to top, rgba(159, 129, 185, 0.9) 0%, rgba(159, 129, 185, 0.4) 50%, transparent 100%)',
+              background: 'linear-gradient(to top, rgba(138, 90, 185, 0.9) 0%, rgba(138, 90, 185, 0.4) 50%, transparent 100%)',
             }}
             animate={{ opacity: isHovered ? 0.9 : 0.7 }}
             transition={{ duration: 0.3 }}
@@ -84,7 +84,7 @@ function MovementItem({ title, description, image, imageAlt, icon, delay = 0 }: 
               transition={{ duration: 1 }}
               className="absolute inset-0 rounded-full"
               style={{
-                backgroundColor: 'rgba(159, 129, 185, 0.3)',
+                backgroundColor: 'rgba(138, 90, 185, 0.4)',
                 transformOrigin: 'center',
               }}
             />
@@ -188,8 +188,8 @@ export function Movement() {
             {'OUR MOVEMENT'.split(' ').map((word, i) => (
               <motion.span
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                initial={{ opacity: 0, y: 20, filter: 'blur(5px)' }}
+                animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 className="inline-block mr-3"
               >

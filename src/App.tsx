@@ -35,7 +35,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen lg:pl-52 pt-16 lg:pt-0">
       {/* Global soap bubble background — fixed, z-index 0, behind everything */}
       <SoapBubbles count={8} />
       <Navbar />

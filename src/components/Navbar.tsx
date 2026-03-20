@@ -1,133 +1,196 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Heart } from 'lucide-react';
 
 const navLinks = [
-  { name: 'Hi You', href: '#hero' },
-  { name: 'Our Story', href: '#story' },
-  { name: 'Our Creations', href: '#creations' },
-  { name: 'Our Movement', href: '#movement' },
-  { name: 'Send a Love Gift', href: '#gift' },
-  { name: 'Say Hello', href: '#contact' },
+  { name: 'Hi You', href: '#hero', emoji: '✨' },
+  { name: 'Our Story', href: '#story', emoji: '📖' },
+  { name: 'Our Creations', href: '#creations', emoji: '🏛️' },
+  { name: 'Our Movement', href: '#movement', emoji: '🌍' },
+  { name: 'Send a Love Gift', href: '#gift', emoji: '💜' },
+  { name: 'Say Hello', href: '#contact', emoji: '👋' },
 ];
 
-// STRICT COLOR: Only #9F81B9 and white allowed
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [activeLink, setActiveLink] = useState('#hero');
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    setActiveLink(href);
     setIsMobileMenuOpen(false);
   };
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'bg-[#9F81B9]/95 backdrop-blur-lg'
-            : 'bg-[#9F81B9]'
-        }`}
+      {/* ===================== DESKTOP LEFT SIDEBAR ===================== */}
+      <motion.aside
+        initial={{ x: -220, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+        className="fixed left-0 top-0 h-screen w-52 z-50 hidden lg:flex flex-col"
         style={{
-          boxShadow: isScrolled ? '0 4px 30px rgba(159, 129, 185, 0.3)' : 'none',
+          background: 'linear-gradient(180deg, #8A5AB9 0%, #9F81B9 50%, #b59fd4 100%)',
+          boxShadow: '4px 0 40px rgba(138, 90, 185, 0.4)',
         }}
       >
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo */}
-            <motion.a
-              href="#hero"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection('#hero');
-              }}
-              className="flex flex-col items-start"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span className="text-white text-sm lg:text-base font-bold tracking-wider">
-                ELEV8 GOD WITHIN
-              </span>
-              <span className="text-white/80 text-xs lg:text-sm tracking-widest">
-                MINISTRIES
-              </span>
-            </motion.a>
+        {/* Subtle background pattern */}
+        <div
+          className="absolute inset-0 opacity-5 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 20% 50%, white 1px, transparent 1px)',
+            backgroundSize: '30px 30px',
+          }}
+        />
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1">
-              {navLinks.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(link.href);
-                  }}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.3 }}
-                  className="relative px-4 py-2 text-white/90 text-sm font-medium transition-colors hover:text-white group"
-                >
-                  {link.name}
-                  <motion.span
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full"
-                    whileHover={{ width: '60%' }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.a>
-              ))}
-            </nav>
+        {/* Top glow accent */}
+        <motion.div
+          className="absolute top-0 left-0 right-0 h-1"
+          style={{
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)',
+          }}
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        />
 
-            {/* CTA Button */}
-            <motion.a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection('#contact');
-              }}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 }}
-              whileHover={{ 
-                scale: 1.05, 
-                boxShadow: '0 0 30px rgba(255,255,255,0.3)',
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="hidden lg:block px-6 py-2.5 bg-white text-[#9F81B9] text-sm font-semibold rounded-full transition-all hover:bg-white/90"
-            >
-              Donate Now
-            </motion.a>
+        {/* Logo */}
+        <motion.a
+          href="#hero"
+          onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
+          className="relative z-10 flex flex-col items-center pt-10 pb-8 px-6 text-center border-b border-white/20 cursor-pointer"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+        >
+          {/* Logo Icon */}
+          <motion.div
+            className="w-16 h-16 rounded-full flex items-center justify-center mb-4"
+            style={{
+              background: 'rgba(255,255,255,0.2)',
+              boxShadow: '0 0 20px rgba(255,255,255,0.3), inset 0 0 10px rgba(255,255,255,0.1)',
+            }}
+            animate={{
+              boxShadow: [
+                '0 0 20px rgba(255,255,255,0.3)',
+                '0 0 40px rgba(255,255,255,0.6)',
+                '0 0 20px rgba(255,255,255,0.3)',
+              ],
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
+          >
+            <span className="text-2xl">✦</span>
+          </motion.div>
+          <span className="text-white font-bold text-base tracking-wider leading-tight">
+            ELEV8 GOD WITHIN
+          </span>
+          <span className="text-white/70 text-xs tracking-[0.2em] mt-1 uppercase">
+            Ministries
+          </span>
+        </motion.a>
 
-            {/* Mobile Menu Button */}
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-white"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </motion.button>
-          </div>
+        {/* Nav Links */}
+        <nav className="relative z-10 flex-1 flex flex-col justify-center px-4 py-6 gap-1">
+          {navLinks.map((link, index) => {
+            const isActive = activeLink === link.href;
+            return (
+              <motion.a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.08 + 0.4 }}
+                whileHover={{ x: 6 }}
+                className="relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer group"
+                style={{
+                  backgroundColor: isActive ? 'rgba(255,255,255,0.2)' : 'transparent',
+                  color: isActive ? 'white' : 'rgba(255,255,255,0.8)',
+                }}
+              >
+                {/* Active indicator bar */}
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeBar"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-7 rounded-full bg-white"
+                      initial={{ opacity: 0, scaleY: 0 }}
+                      animate={{ opacity: 1, scaleY: 1 }}
+                      exit={{ opacity: 0, scaleY: 0 }}
+                    />
+                  )}
+                </AnimatePresence>
+
+                {/* Hover background */}
+                <motion.div
+                  className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+                />
+
+                <span className="text-base relative z-10">{link.emoji}</span>
+                <span className="relative z-10">{link.name}</span>
+              </motion.a>
+            );
+          })}
+        </nav>
+
+        {/* Donate CTA at bottom */}
+        <div className="relative z-10 px-4 pb-8">
+          <motion.a
+            href="#contact"
+            onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
+            whileHover={{
+              scale: 1.04,
+              boxShadow: '0 0 30px rgba(255,255,255,0.5)',
+            }}
+            whileTap={{ scale: 0.96 }}
+            className="flex items-center justify-center gap-2 w-full py-3 bg-white text-[#8A5AB9] font-bold text-sm rounded-full cursor-pointer"
+            style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}
+          >
+            <Heart className="w-4 h-4" fill="currentColor" />
+            Donate Now
+          </motion.a>
+
+          {/* Version tag */}
+          <p className="text-center text-white/40 text-xs mt-4">
+            © 2025 ELEV8 GOD WITHIN
+          </p>
         </div>
+      </motion.aside>
+
+      {/* ===================== MOBILE TOP BAR ===================== */}
+      <motion.header
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 h-16 lg:hidden"
+        style={{
+          background: 'linear-gradient(135deg, #8A5AB9, #9F81B9)',
+          boxShadow: '0 4px 20px rgba(138,90,185,0.4)',
+        }}
+      >
+        <motion.a
+          href="#hero"
+          onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
+          className="flex flex-col"
+          whileTap={{ scale: 0.97 }}
+        >
+          <span className="text-white font-bold text-sm tracking-wider">ELEV8 GOD WITHIN</span>
+          <span className="text-white/70 text-xs tracking-widest">MINISTRIES</span>
+        </motion.a>
+
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-2 text-white"
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </motion.button>
       </motion.header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -136,47 +199,40 @@ export function Navbar() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-x-0 top-16 z-40 lg:hidden"
+            style={{
+              background: 'linear-gradient(180deg, #8A5AB9, #9F81B9)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 10px 40px rgba(138,90,185,0.5)',
+            }}
           >
-            <div 
-              className="border-t border-white/10 shadow-2xl"
-              style={{ 
-                backgroundColor: 'rgba(159, 129, 185, 0.98)',
-                backdropFilter: 'blur(20px)',
-              }}
-            >
-              <nav className="flex flex-col py-4">
-                {navLinks.map((link, index) => (
-                  <motion.a
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(link.href);
-                    }}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className="px-6 py-3 text-white/90 text-base font-medium hover:text-white hover:bg-white/10 transition-colors"
-                  >
-                    {link.name}
-                  </motion.a>
-                ))}
+            <nav className="flex flex-col py-4">
+              {navLinks.map((link, index) => (
                 <motion.a
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection('#contact');
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="mx-6 mt-4 px-6 py-3 bg-white text-center font-semibold rounded-full"
-                  style={{ color: '#9F81B9' }}
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="flex items-center gap-3 px-6 py-3 text-white/90 text-base font-medium hover:text-white hover:bg-white/10 transition-colors"
                 >
-                  Donate Now
+                  <span>{link.emoji}</span>
+                  {link.name}
                 </motion.a>
-              </nav>
-            </div>
+              ))}
+              <motion.a
+                href="#contact"
+                onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.35 }}
+                className="mx-6 mt-4 px-6 py-3 bg-white text-center font-bold rounded-full flex items-center justify-center gap-2"
+                style={{ color: '#8A5AB9' }}
+              >
+                <Heart className="w-4 h-4" fill="currentColor" />
+                Donate Now
+              </motion.a>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
