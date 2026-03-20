@@ -1,137 +1,122 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ConnectedNodes } from '../components/animations/ParticleField';
-import { Heart, Globe, Sparkles } from 'lucide-react';
+import { Heart, Globe, Sparkles, ArrowRight } from 'lucide-react';
 
 import innerElevationImg from '../assests/Our Movement/1000077032.jpg';
 import globalUnityImg from '../assests/Our Movement/1000077033.jpg';
 import consciousCreationImg from '../assests/corporate HQ/1000077339.jpg';
 
-interface MovementItemProps {
-  title: string;
-  description: string;
-  image: string;
-  imageAlt: string;
-  icon: React.ReactNode;
-  delay?: number;
-}
+const movementItems = [
+  {
+    title: 'Inner Elevation',
+    description: 'Expand in love and awareness through transformative inner practice and deep consciousness work.',
+    image: innerElevationImg,
+    imageAlt: 'Inner Elevation',
+    icon: Heart,
+    accent: '#8A5AB9',
+  },
+  {
+    title: 'Global Unity',
+    description: 'Unify communities and nations through shared purpose, love, and collective awakening.',
+    image: globalUnityImg,
+    imageAlt: 'Global Unity',
+    icon: Globe,
+    accent: '#9F81B9',
+  },
+  {
+    title: 'Conscious Creation',
+    description: 'Create with intention, compassion, and inspired divine action toward a better world.',
+    image: consciousCreationImg,
+    imageAlt: 'Conscious Creation',
+    icon: Sparkles,
+    accent: '#b59fd4',
+  },
+];
 
-// STRICT COLOR: Only #9F81B9 and white allowed
-function MovementItem({ title, description, image, imageAlt, icon, delay = 0 }: MovementItemProps) {
+function MovementCard({ item, index }: { item: typeof movementItems[0]; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
+  const Icon = item.icon;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.8, delay, ease: [0.4, 0, 0.2, 1] }}
+      initial={{ opacity: 0, y: 50, filter: 'blur(8px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.9, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative group"
+      className="relative group cursor-pointer"
     >
-      <motion.div
-        className="relative bg-white rounded-2xl overflow-hidden transition-all duration-500"
-        animate={{
-          y: isHovered ? -10 : 0,
-          boxShadow: isHovered
-            ? '0 30px 60px -15px rgba(138, 90, 185, 0.6)'
-            : '0 10px 30px -10px rgba(0, 0, 0, 0.1)',
-        }}
+      {/* Number label */}
+      <div
+        className="absolute -top-4 -left-2 z-20 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-black"
+        style={{ background: 'linear-gradient(135deg, #8A5AB9, #9F81B9)' }}
       >
-        {/* Image Container */}
-        <div className="relative aspect-[16/10] overflow-hidden">
-          <motion.div
-            className="w-full h-full"
-            animate={{ scale: isHovered ? 1.08 : 1 }}
-            transition={{ duration: 0.6 }}
-          >
-            <img
-              src={image}
-              alt={imageAlt}
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
+        {String(index + 1).padStart(2, '0')}
+      </div>
 
-          {/* Gradient Overlay - Royal Purple */}
+      <motion.div
+        className="relative bg-white rounded-3xl overflow-hidden"
+        animate={{
+          y: isHovered ? -8 : 0,
+          boxShadow: isHovered
+            ? '0 30px 70px -15px rgba(138,90,185,0.55)'
+            : '0 8px 24px -8px rgba(0,0,0,0.1)',
+        }}
+        transition={{ duration: 0.4 }}
+      >
+        {/* Image */}
+        <div className="relative overflow-hidden" style={{ aspectRatio: '16/10' }}>
+          <motion.img
+            src={item.image}
+            alt={item.imageAlt}
+            className="w-full h-full object-cover"
+            animate={{ scale: isHovered ? 1.07 : 1 }}
+            transition={{ duration: 0.7 }}
+          />
           <motion.div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to top, rgba(138, 90, 185, 0.9) 0%, rgba(138, 90, 185, 0.4) 50%, transparent 100%)',
+              background: `linear-gradient(to top, ${item.accent}dd 0%, ${item.accent}44 50%, transparent 100%)`,
             }}
-            animate={{ opacity: isHovered ? 0.9 : 0.7 }}
-            transition={{ duration: 0.3 }}
+            animate={{ opacity: isHovered ? 1 : 0.7 }}
+            transition={{ duration: 0.4 }}
           />
 
-          {/* Icon Badge */}
-          <motion.div
-            className="absolute top-4 left-4 w-12 h-12 rounded-full flex items-center justify-center"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', backdropFilter: 'blur(4px)' }}
-            animate={{
-              scale: isHovered ? 1.1 : 1,
-              rotate: isHovered ? [0, -10, 10, 0] : 0,
-            }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="text-white">{icon}</div>
-          </motion.div>
-
-          {/* Ripple Effect on Hover - #9F81B9 */}
+          {/* Ripple on hover */}
           {isHovered && (
             <motion.div
-              initial={{ scale: 0, opacity: 0.5 }}
-              animate={{ scale: 4, opacity: 0 }}
-              transition={{ duration: 1 }}
+              initial={{ scale: 0, opacity: 0.4 }}
+              animate={{ scale: 3, opacity: 0 }}
+              transition={{ duration: 0.8 }}
               className="absolute inset-0 rounded-full"
-              style={{
-                backgroundColor: 'rgba(138, 90, 185, 0.4)',
-                transformOrigin: 'center',
-              }}
+              style={{ backgroundColor: item.accent, transformOrigin: 'center' }}
             />
           )}
         </div>
 
         {/* Content */}
-        <div className="p-6 text-center">
-          <motion.h3
-            className="text-xl lg:text-2xl font-bold text-gray-900 mb-3"
-            animate={{ y: isHovered ? -2 : 0 }}
-            transition={{ duration: 0.3 }}
+        <div className="p-6">
+          {/* Icon chip */}
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+            style={{ background: `${item.accent}18` }}
           >
-            {title}
-          </motion.h3>
+            <Icon className="w-5 h-5" style={{ color: item.accent }} />
+          </div>
 
-          <motion.p
-            className="text-gray-600 leading-relaxed"
-            animate={{ y: isHovered ? -2 : 0 }}
-            transition={{ duration: 0.3, delay: 0.05 }}
-          >
-            {description}
-          </motion.p>
+          <h3 className="text-xl font-black text-gray-900 mb-2">{item.title}</h3>
+          <p className="text-gray-500 text-sm leading-relaxed mb-5">{item.description}</p>
+
+          {/* Bottom accent bar */}
+          <motion.div
+            className="h-0.5 rounded-full"
+            style={{ background: `linear-gradient(to right, ${item.accent}, transparent)`, transformOrigin: 'left' }}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: isHovered ? 1 : 0 }}
+            transition={{ duration: 0.4 }}
+          />
         </div>
-
-        {/* Bottom Accent Line - #9F81B9 */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 h-1"
-          style={{
-            background: 'linear-gradient(to right, #9F81B9, rgba(159, 129, 185, 0.7), #9F81B9)',
-            transformOrigin: 'left',
-          }}
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.4 }}
-        />
-
-        {/* Corner Glow - #9F81B9 */}
-        <motion.div
-          className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full blur-3xl"
-          style={{ backgroundColor: 'rgba(159, 129, 185, 0.2)' }}
-          animate={{
-            opacity: isHovered ? 1 : 0,
-            scale: isHovered ? 1.2 : 1,
-          }}
-          transition={{ duration: 0.5 }}
-        />
       </motion.div>
     </motion.div>
   );
@@ -141,80 +126,63 @@ export function Movement() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
 
-  const movementItems = [
-    {
-      title: 'Inner Elevation',
-      description: 'Expand in love and awareness through inner practice.',
-      image: innerElevationImg,
-      imageAlt: 'Inner Elevation Image',
-      icon: <Heart className="w-6 h-6" />,
-    },
-    {
-      title: 'Global Unity',
-      description: 'Unify communities and nations through shared purpose.',
-      image: globalUnityImg,
-      imageAlt: 'Global Unity Image',
-      icon: <Globe className="w-6 h-6" />,
-    },
-    {
-      title: 'Conscious Creation',
-      description: 'Create with intention, compassion, and inspired action.',
-      image: consciousCreationImg,
-      imageAlt: 'Conscious Creation Image',
-      icon: <Sparkles className="w-6 h-6" />,
-    },
-  ];
-
   return (
     <section
       id="movement"
       ref={sectionRef}
-      className="relative py-20 lg:py-32 overflow-hidden"
+      className="relative py-24 lg:py-36 overflow-hidden bg-white"
     >
-      {/* Connected Nodes Background - for community/unity theme */}
-      <ConnectedNodes className="opacity-50" />
+      {/* Background gradient */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 0% 50%, rgba(159,129,185,0.07) 0%, transparent 60%)',
+        }}
+      />
 
       <div className="section-container relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <motion.h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
-          >
-            {'OUR MOVEMENT'.split(' ').map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 20, filter: 'blur(5px)' }}
-                animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-                className="inline-block mr-3"
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-0.5 rounded-full" style={{ background: '#8A5AB9' }} />
+              <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#8A5AB9' }}>What We Stand For</span>
+            </div>
+            <motion.h2
+              className="text-4xl sm:text-5xl lg:text-6xl font-black leading-none tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-gray-900">Our </span>
+              <span
+                className="italic"
+                style={{ color: 'transparent', WebkitTextStroke: '2px #8A5AB9' }}
               >
-                {word}
-              </motion.span>
-            ))}
-          </motion.h2>
+                Movement
+              </span>
+            </motion.h2>
+          </div>
 
-          <motion.div
-            initial={{ width: 0 }}
-            animate={isInView ? { width: '100px' } : {}}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="h-1 rounded-full mx-auto"
-            style={{ background: 'linear-gradient(to right, #9F81B9, rgba(159, 129, 185, 0.5))' }}
-          />
-        </motion.div>
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.5 }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+            className="flex items-center gap-2 px-6 py-3 text-white font-bold text-sm rounded-full self-start lg:self-auto"
+            style={{ background: 'linear-gradient(135deg, #8A5AB9, #9F81B9)' }}
+          >
+            Join the Movement
+            <ArrowRight className="w-4 h-4" />
+          </motion.button>
+        </div>
 
-        {/* Movement Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {movementItems.map((item, index) => (
-            <MovementItem
-              key={item.title}
-              {...item}
-              delay={0.2 + index * 0.15}
-            />
+        {/* Cards grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+          {movementItems.map((item, i) => (
+            <MovementCard key={item.title} item={item} index={i} />
           ))}
         </div>
       </div>
