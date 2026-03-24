@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Heart } from 'lucide-react';
+import { Menu, X, Heart, Sparkles, BookOpen, LayoutGrid, Globe, Gift, MessageCircle, type LucideIcon } from 'lucide-react';
 
-const navLinks = [
-  { name: 'Hi You', href: '#hero', emoji: '✨' },
-  { name: 'Our Story', href: '#story', emoji: '📖' },
-  { name: 'Our Creations', href: '#creations', emoji: '🏛️' },
-  { name: 'Our Movement', href: '#movement', emoji: '🌍' },
-  { name: 'Send a Love Gift', href: '#gift', emoji: '💜' },
-  { name: 'Say Hello', href: '#contact', emoji: '👋' },
+type NavLink = { name: string; href: string; Icon: LucideIcon };
+
+const navLinks: NavLink[] = [
+  { name: 'Hi You',           href: '#hero',      Icon: Sparkles       },
+  { name: 'Our Story',        href: '#story',     Icon: BookOpen       },
+  { name: 'Our Creations',    href: '#creations', Icon: LayoutGrid     },
+  { name: 'Our Movement',     href: '#movement',  Icon: Globe          },
+  { name: 'Send a Love Gift', href: '#gift',      Icon: Gift           },
+  { name: 'Say Hello',        href: '#contact',   Icon: MessageCircle  },
 ];
 
 export function Navbar() {
@@ -128,7 +130,13 @@ export function Navbar() {
                   style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
                 />
 
-                <span className="text-base relative z-10">{link.emoji}</span>
+                <link.Icon
+                  className="w-4 h-4 relative z-10 flex-shrink-0"
+                  style={{
+                    filter: isActive ? 'drop-shadow(0 0 6px rgba(255,255,255,0.9))' : 'none',
+                    opacity: isActive ? 1 : 0.75,
+                  }}
+                />
                 <span className="relative z-10">{link.name}</span>
               </motion.a>
             );
@@ -216,7 +224,7 @@ export function Navbar() {
                   transition={{ delay: index * 0.05 }}
                   className="flex items-center gap-3 px-6 py-3 text-white/90 text-base font-medium hover:text-white hover:bg-white/10 transition-colors"
                 >
-                  <span>{link.emoji}</span>
+                  <link.Icon className="w-4 h-4 opacity-80" />
                   {link.name}
                 </motion.a>
               ))}

@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { CosmicRings, ParticleField } from '../components/animations/ParticleField';
 import { Sparkles, Zap, Star } from 'lucide-react';
+import psychedelicImg from '../assests/ELEV8PSYCHEDELICEXPERIENCE/image.jpeg';
 
 // STRICT COLOR: Only #9F81B9 and white allowed
 export function PsychedelicExperience() {
@@ -21,25 +22,23 @@ export function PsychedelicExperience() {
       className="relative py-24 lg:py-36 overflow-hidden"
       style={{ backgroundColor: '#9F81B9' }}
     >
-      {/* Animated Gradient Overlay - using #9F81B9 variations */}
+      {/* Animated Gradient Overlay */}
       <motion.div
         className="absolute inset-0"
         style={{
           background: 'radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%)',
         }}
-        animate={{
-          opacity: [0.8, 1, 0.8],
-        }}
+        animate={{ opacity: [0.8, 1, 0.8] }}
         transition={{ duration: 5, repeat: Infinity }}
       />
 
       {/* Cosmic Rings */}
       <CosmicRings className="opacity-30" />
 
-      {/* Particle Field - white particles */}
+      {/* Particle Field */}
       <ParticleField count={30} color="rgba(255, 255, 255, 0.4)" />
 
-      {/* Floating Stars - white */}
+      {/* Floating Stars */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(12)].map((_, i) => (
           <motion.div
@@ -67,7 +66,7 @@ export function PsychedelicExperience() {
         ))}
       </div>
 
-      {/* Energy Orbs - white */}
+      {/* Energy Orbs */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(5)].map((_, i) => (
           <motion.div
@@ -80,162 +79,165 @@ export function PsychedelicExperience() {
               left: `${15 + i * 18}%`,
               top: `${30 + (i % 3) * 20}%`,
             }}
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: i * 0.5,
-            }}
+            animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 4 + i, repeat: Infinity, ease: 'easeInOut', delay: i * 0.5 }}
           />
         ))}
       </div>
 
-      {/* Nebula Effects - white */}
+      {/* Nebula Effects */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 60%)',
-          filter: 'blur(60px)',
-        }}
-        animate={{
-          scale: [1, 1.2, 1],
-          x: [0, 30, 0],
-          y: [0, -20, 0],
-        }}
+        style={{ background: 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 60%)', filter: 'blur(60px)' }}
+        animate={{ scale: [1, 1.2, 1], x: [0, 30, 0], y: [0, -20, 0] }}
         transition={{ duration: 10, repeat: Infinity }}
       />
       <motion.div
         className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%)',
-          filter: 'blur(50px)',
-        }}
-        animate={{
-          scale: [1.2, 1, 1.2],
-          x: [0, -20, 0],
-          y: [0, 30, 0],
-        }}
+        style={{ background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%)', filter: 'blur(50px)' }}
+        animate={{ scale: [1.2, 1, 1.2], x: [0, -20, 0], y: [0, 30, 0] }}
         transition={{ duration: 12, repeat: Infinity }}
       />
 
+      {/* ── Two-column layout ── */}
       <div className="section-container relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
-          className="text-center max-w-4xl mx-auto"
-        >
-          {/* Sparkle Icons - white */}
+        <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
+
+          {/* LEFT — Text content */}
           <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex justify-center gap-4 mb-6"
+            initial={{ opacity: 0, x: -60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
+            className="flex-1 text-left"
           >
-            {[Sparkles, Zap, Sparkles].map((Icon, i) => (
-              <motion.div
-                key={i}
-                animate={{
-                  rotate: [0, 15, -15, 0],
-                  scale: [1, 1.1, 1],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: i * 0.3,
-                }}
-              >
-                <Icon className="w-8 h-8 text-white/80" />
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Title */}
-          <motion.h2
-            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6"
-          >
-            {'ELEV8 PSYCHEDELIC EXPERIENCE'.split(' ').map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 30, rotateX: -90, filter: 'blur(10px)' }}
-                animate={isInView ? { opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)' } : {}}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.3 + i * 0.08,
-                  ease: [0.4, 0, 0.2, 1],
-                }}
-                className="inline-block mr-3"
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                {word}
-              </motion.span>
-            ))}
-          </motion.h2>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-lg lg:text-xl text-white/80 mb-10 max-w-2xl mx-auto"
-          >
-            sign up for the PSYCHEDELIC EXPERIENCE
-          </motion.p>
-
-          {/* CTA Button */}
-          <motion.button
-            onClick={scrollToContact}
-            initial={{ opacity: 0, y: 20, filter: 'blur(5px)' }}
-            animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-            transition={{ duration: 0.8, delay: 1 }}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: '0 0 60px rgba(255, 255, 255, 0.8)',
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center px-10 py-4 bg-white text-lg font-bold rounded-full transition-all duration-300 hover:bg-white/90 group hover-lift shadow-2xl"
-            style={{ color: '#8A5AB9' }}
-          >
-            Donate as a Creator
-            <motion.svg
-              className="w-5 h-5 ml-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
+            {/* Sparkle Icons */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex gap-4 mb-6"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </motion.svg>
-          </motion.button>
+              {[Sparkles, Zap, Sparkles].map((Icon, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.1, 1] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
+                >
+                  <Icon className="w-8 h-8 text-white/80" />
+                </motion.div>
+              ))}
+            </motion.div>
 
-          {/* Decorative Elements */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 1, delay: 1.2 }}
-            className="flex justify-center gap-8 mt-12"
-          >
-            {['Awaken', 'Elevate', 'Transform'].map((text, i) => (
-              <motion.span
-                key={text}
-                initial={{ opacity: 0, y: 10 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 1.3 + i * 0.1 }}
-                className="text-white/60 text-sm font-medium tracking-wider uppercase"
+            {/* Title */}
+            <motion.h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6">
+              {'ELEV8 PSYCHEDELIC EXPERIENCE'.split(' ').map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 30, rotateX: -90, filter: 'blur(10px)' }}
+                  animate={isInView ? { opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)' } : {}}
+                  transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: [0.4, 0, 0.2, 1] }}
+                  className="inline-block mr-3"
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </motion.h2>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="text-lg lg:text-xl text-white/80 mb-10 max-w-lg"
+            >
+              sign up for the PSYCHEDELIC EXPERIENCE
+            </motion.p>
+
+            {/* CTA Button */}
+            <motion.button
+              onClick={scrollToContact}
+              initial={{ opacity: 0, y: 20, filter: 'blur(5px)' }}
+              animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+              transition={{ duration: 0.8, delay: 1 }}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 60px rgba(255, 255, 255, 0.8)' }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center px-10 py-4 bg-white text-lg font-bold rounded-full transition-all duration-300 hover:bg-white/90 group hover-lift shadow-2xl"
+              style={{ color: '#8A5AB9' }}
+            >
+              Donate as a Creator
+              <motion.svg
+                className="w-5 h-5 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
               >
-                {text}
-              </motion.span>
-            ))}
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </motion.svg>
+            </motion.button>
+
+            {/* Awaken · Elevate · Transform */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 1, delay: 1.2 }}
+              className="flex gap-8 mt-12"
+            >
+              {['Awaken', 'Elevate', 'Transform'].map((text, i) => (
+                <motion.span
+                  key={text}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 1.3 + i * 0.1 }}
+                  className="text-white/60 text-sm font-medium tracking-wider uppercase"
+                >
+                  {text}
+                </motion.span>
+              ))}
+            </motion.div>
           </motion.div>
-        </motion.div>
+
+          {/* RIGHT — Image Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 60, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
+            transition={{ duration: 1, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="flex-1 flex justify-center lg:justify-end"
+          >
+            <motion.div
+              whileHover={{ scale: 1.03, rotate: 1 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+              className="relative w-full max-w-md"
+              style={{
+                borderRadius: '24px',
+                boxShadow: '0 30px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.15)',
+                overflow: 'hidden',
+              }}
+            >
+              {/* Shimmer overlay */}
+              <motion.div
+                className="absolute inset-0 z-10 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 50%, rgba(255,255,255,0.06) 100%)',
+                }}
+                animate={{ opacity: [0.6, 1, 0.6] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <img
+                src={psychedelicImg}
+                alt="ELEV8 Psychedelic Experience"
+                className="w-full h-auto object-cover"
+                style={{ display: 'block', minHeight: '320px' }}
+              />
+            </motion.div>
+          </motion.div>
+
+        </div>
       </div>
 
-      {/* Bottom Wave - white */}
+      {/* Bottom Wave */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg
           viewBox="0 0 1440 120"
