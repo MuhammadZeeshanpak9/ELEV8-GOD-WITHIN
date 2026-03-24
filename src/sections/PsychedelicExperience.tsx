@@ -183,7 +183,7 @@ export function PsychedelicExperience() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="text-lg lg:text-xl text-white/80 mb-10 max-w-2xl mx-auto"
           >
-            Sign up to Elev8 your mental connection to your UNIVERSE.
+            sign up for the PSYCHEDELIC EXPERIENCE
           </motion.p>
 
           {/* CTA Button */}

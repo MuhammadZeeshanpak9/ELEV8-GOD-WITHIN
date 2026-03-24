@@ -3,7 +3,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { ExternalLink, Quote } from 'lucide-react';
 import { RisingLines } from '../components/animations/ParticleField';
 
-import storyImage from '../assests/Our_Story/1000077031.jpg';
+import storyImage from '../assests/Our Movement/1000077033.jpg';
 
 const highlightLines = [
   'THE I of YOU of the I AM',
