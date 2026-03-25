@@ -130,7 +130,7 @@ export function PsychedelicExperience() {
 
             {/* Title */}
             <motion.h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6">
-              {'ELEV8 PSYCHEDELIC EXPERIENCE'.split(' ').map((word, i) => (
+              {'ELEV8 AYAHUASCA EXPERIENCE'.split(' ').map((word, i) => (
                 <motion.span
                   key={i}
                   initial={{ opacity: 0, y: 30, rotateX: -90, filter: 'blur(10px)' }}
@@ -151,7 +151,7 @@ export function PsychedelicExperience() {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="text-lg lg:text-xl text-white/80 mb-10 max-w-lg"
             >
-              sign up for the PSYCHEDELIC EXPERIENCE
+              Sign Up For The AYAHUASCA EXPERIENCE
             </motion.p>
 
             {/* CTA Button */}
@@ -227,7 +227,7 @@ export function PsychedelicExperience() {
               />
               <img
                 src={psychedelicImg}
-                alt="ELEV8 Psychedelic Experience"
+                alt="ELEV8 Ayahuasca Experience"
                 className="w-full h-auto object-cover"
                 style={{ display: 'block', minHeight: '320px' }}
               />
